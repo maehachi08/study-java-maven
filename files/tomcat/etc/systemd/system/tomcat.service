@@ -1,0 +1,18 @@
+[Unit]
+Description=Apache Tomcat Web Application Container
+After=syslog.target network.target
+
+[Service]
+EnvironmentFile=/etc/sysconfig/tomcat
+User=tomcat
+Group=tomcat
+Type=simple
+PIDFile=/opt/apache-tomcat/tomcat.pid
+RemainAfterExit=yes
+
+ExecStart=/opt/apache-tomcat/bin/startup.sh
+ExecStop=/opt/apache-tomcat/bin/shutdown.sh
+ExecReStart=/opt/apache-tomcat/bin/shutdown.sh && /opt/apache-tomcat/bin/startup.sh
+
+[Install]
+WantedBy=multi-user.target
